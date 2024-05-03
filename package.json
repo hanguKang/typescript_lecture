@@ -1,0 +1,16 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "typescript 테스트하기",
+  "main": "index.js",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "tsd": "^0.31.0"
+  },
+  "author": "k",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build",
+    "clean": "tsc --build --clean"
+  }
+}
