@@ -10,10 +10,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const capt = {
     name: "테스트",
-    age: 10,
+    age: 11,
     skill: 100
 };
-let person = {
+let person_1 = {
     name: 'mark',
     age: 12
 };
@@ -21,10 +21,9 @@ let val_unknown;
 let user;
 if (typeof val_unknown === 'string')
     user = val_unknown;
-person = { name: 'miu', age: 19 };
+person_1 = { name: 'miu', age: 19 };
 const button = document.getElementById('btn');
 function clickShow(message) {
-    //console.log(this);
     console.log(message);
 }
 button.addEventListener('click', clickShow.bind(null, 'clicked'));
@@ -45,8 +44,7 @@ function fetchAuthorName(postId) {
     });
 }
 fetchAuthorName(1).then((name) => console.log("name : ", name));
-// this 알아내기
-class Person {
+class Person_2 {
     constructor() {
         this.name = "person";
         this.getMyName = () => {
@@ -57,14 +55,13 @@ class Person {
         return this.name;
     }
 }
-const person1 = new Person();
-console.log(person1.getName()); // person
-const personName = person1.getName;
+const person2 = new Person_2();
+console.log(person2.getName);
+const personName = person2.getName;
 console.log('1번 this');
-//console.log(personName());          // undefined
 console.log('2번 this');
-const personName2 = person1.getMyName;
-console.log(personName2()); // person
+const personName2 = person2.getMyName;
+console.log(personName2());
 let user1 = {
     name: "John",
     surname: "Smith"
@@ -77,7 +74,75 @@ Object.defineProperty(user1, 'fullName', {
         [this.name, this.surname] = value.split(" ");
     }
 });
-//alert(user1.fullName); // John Smith
-//for(let key in user1) alert(key); // name, surname
-//  user1.fullName('Kang hangu');
 console.log(user1.fullName);
+class Handler {
+    constructor() {
+        this.info = 'Hello world';
+        this.onClickGood = (evnt) => {
+            console.log('굿클릭');
+        };
+    }
+}
+let h = new Handler();
+let uiElement = {
+    addClickListener: (onclick) => { console.log('Event ~~~!!'); }
+};
+uiElement.addClickListener(h.onClickGood);
+class Animal {
+    constructor(theName) { this.name = theName; }
+    show() {
+        console.log(this.name);
+    }
+}
+class Rhino extends Animal {
+    constructor() { super("Rhino"); }
+}
+class Employee {
+    constructor(theName) { this.name = theName; }
+}
+let animal = new Animal("Goat");
+let rhino = new Rhino();
+let employee = new Employee("Bob");
+animal = rhino;
+console.log(animal.show());
+class Grid {
+    calculateDistanceFromOrigin(point) {
+        let xDist = (point.x - Grid.origin.x);
+        let yDist = (point.y - Grid.origin.y);
+        return Math.sqrt(xDist * xDist + yDist * yDist) / this.scale;
+    }
+    constructor(scale) {
+        this.scale = scale;
+    }
+}
+Grid.origin = { x: 0, y: 0 };
+let grid1 = new Grid(1.0);
+let grid2 = new Grid(5.0);
+console.log(grid1.calculateDistanceFromOrigin({ x: 10, y: 10 }));
+console.log(grid2.calculateDistanceFromOrigin({ x: 10, y: 10 }));
+var LogLevel;
+(function (LogLevel) {
+    LogLevel[LogLevel["ERROR"] = 0] = "ERROR";
+    LogLevel[LogLevel["WARN"] = 1] = "WARN";
+    LogLevel[LogLevel["INFO"] = 2] = "INFO";
+    LogLevel[LogLevel["DEBUG"] = 3] = "DEBUG";
+})(LogLevel || (LogLevel = {}));
+function printImportant(key, message) {
+    const num = LogLevel[key];
+    if (num <= LogLevel.WARN) {
+        console.log('Log level key is: ', key);
+        console.log('Log level value is: ', num);
+        console.log('Log level message is: ', message);
+    }
+}
+printImportant('ERROR', 'This is a message');
+var Bool;
+(function (Bool) {
+    Bool[Bool["True"] = 0] = "True";
+    Bool[Bool["False"] = 1] = "False";
+    Bool[Bool["FileNotFound"] = 2] = "FileNotFound";
+})(Bool || (Bool = {}));
+let value = Bool.FileNotFound;
+console.log(value);
+let value_2 = Bool[3];
+console.log(value_2);
