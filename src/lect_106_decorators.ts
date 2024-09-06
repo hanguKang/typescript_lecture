@@ -272,7 +272,7 @@ function Validate (target:any, propertyName: string, descriptor: PropertyDescrip
         console.log('OK!');
       }
     });
-    method.apply(this, args);
+    method.apply(this, args); //#1 이건 왜 있는거지? - 실제 setName을 작동시키기 위해서 현재 setName에는 아무런 실행코드가 없기 때문에 지워도 상관없다. 
    }
 }
 
