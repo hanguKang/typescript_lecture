@@ -325,4 +325,32 @@ btn.addEventListener('click',instance_btnEvnt.showMsg);
 
 //---------------------------------------------------------------------------------------------------------------
 
+const Inject_obj = {
+  name1 : {name: 'name1'},
+  name2 : {name: 'name2'},
+  name3 : {name: 'name3'},
+  name4 : {name: 'name4'}
+}
 
+
+
+function Inject_propery(...args:string[]){
+  return function <T extends {new(...args:any[]):{}}>(originalConstructor: T){
+    return class extends originalConstructor {
+      constructor(...args:any[]){
+        args.reduce((deps, val)=> ({
+          deps
+        }),{});
+        super();
+      }
+    }
+  }
+}
+
+
+@Inject_propery('name1', 'name2')
+class Property_test {
+  constructor(...args:any[]){
+    console.log('deps name is' + args);
+  }
+}
