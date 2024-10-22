@@ -260,3 +260,29 @@ __decorate([
 let btn = document.querySelector('button');
 let instance_btnEvnt = new BtnEvnt();
 btn.addEventListener('click', instance_btnEvnt.showMsg);
+const Inject_obj = {
+    name1: { name: 'name1' },
+    name2: { name: 'name2' },
+    name3: { name: 'name3' },
+    name4: { name: 'name4' }
+};
+function Inject_propery(...args) {
+    return function (originalConstructor) {
+        return class extends originalConstructor {
+            constructor(...args) {
+                args.reduce((deps, val) => ({
+                    deps
+                }), {});
+                super();
+            }
+        };
+    };
+}
+let Property_test = class Property_test {
+    constructor(...args) {
+        console.log('deps name is' + args);
+    }
+};
+Property_test = __decorate([
+    Inject_propery('name1', 'name2')
+], Property_test);
