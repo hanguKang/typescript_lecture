@@ -86,12 +86,12 @@ useVehicle(v1);
 useVehicle(v2);
 
 interface Bird1 {
-  type: 'bird';
+  kind: 'bird';
   flyingSpeed : number; 
 }
 
 interface Horse1 {
-  type: 'horse';
+  kind: 'horse';
   runningSpeed: number;
 }
 
@@ -107,7 +107,7 @@ function moveAnimal(animal: Animal1){
 
   let speed;
 
-  switch (animal.type){
+  switch (animal.kind){
     case 'bird':
       speed = animal.flyingSpeed;
       break; 
@@ -117,9 +117,9 @@ function moveAnimal(animal: Animal1){
 
 }
 
-moveAnimal({type:'bird', flyingSpeed:10});
+moveAnimal({kind:'bird', flyingSpeed:10});
 //type casting
-//#1과 #2중 한가지만 사용하지 혼용해서 사용하는 것은 좋지 않다. 
+//#1과 #2중 한가지만 사용해야하며, 혼용해서 사용하는 것은 좋지 않다. 
 //const userInputElment = <HTMLInputElement>document.getElementById('user-input')!; //#1  : 하지만 이는 React를 사용한다면 에러가 발생할 수 있는데 <type casting>는 React에서 <컴포넌트>로써 하나의 자식 또는 부모 컴포넌트로 사용되기 때문에 이와같은 type casting은 문법의 중복을 야기한다. 따라서 React 한정으로 다른 타입 캐스팅을 지원한다. #2 as 방식을 사용하는 것이 좋다.
 // const userInputElment = document.getElementById('user-input')! as HTMLInputElement; //#2 
 // if(userInputElment){

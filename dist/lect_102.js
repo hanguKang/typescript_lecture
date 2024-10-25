@@ -6,4 +6,4 @@ function createCourseGoal(title, description, date) {
     courseGoal.completeUntil = date;
     return courseGoal;
 }
-const names = ['Max', "Anna"];
+const names_1 = ['Max', "Anna"];

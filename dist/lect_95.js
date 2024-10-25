@@ -10,7 +10,7 @@ function countAndDescribe(element) {
         descriptionText = 'Got 1 element';
     }
     else if (Element.length > 0) {
-        descriptionText = 'Got' + element.length + ' element. ';
+        descriptionText = 'Got' + element.length + ' elements.';
     }
     return [element, descriptionText];
 }

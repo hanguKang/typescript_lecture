@@ -3,6 +3,16 @@ const errorBag = {
     email: 'Not a valid email!',
     username: 'Must start with a capital character!'
 };
+let CatorDog = {
+    name: 'cat',
+    purs: false,
+};
+let CatandDog = {
+    name: 'cat',
+    purs: false,
+    barks: false,
+    wags: false
+};
 let printSuper = param => {
     console.log(param);
 };

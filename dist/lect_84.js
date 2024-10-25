@@ -45,7 +45,7 @@ useVehicle(v1);
 useVehicle(v2);
 function moveAnimal(animal) {
     let speed;
-    switch (animal.type) {
+    switch (animal.kind) {
         case 'bird':
             speed = animal.flyingSpeed;
             break;
@@ -53,7 +53,7 @@ function moveAnimal(animal) {
             speed = animal.runningSpeed;
     }
 }
-moveAnimal({ type: 'bird', flyingSpeed: 10 });
+moveAnimal({ kind: 'bird', flyingSpeed: 10 });
 const userInputElment = document.getElementById('user-input');
 if (userInputElment) {
     userInputElment.value = 'HI there!';
