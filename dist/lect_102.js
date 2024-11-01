@@ -7,3 +7,15 @@ function createCourseGoal(title, description, date) {
     return courseGoal;
 }
 const names_1 = ['Max', "Anna"];
+class DataStorage_1 {
+    constructor() {
+        this.data = [];
+    }
+    addItem(item) {
+    }
+    removeItem(item) {
+    }
+    getItems() {
+        return [...this.data];
+    }
+}

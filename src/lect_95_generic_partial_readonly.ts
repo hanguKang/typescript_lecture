@@ -93,7 +93,8 @@ extracAndConvert({ name: 'Max'}, 'name');
 
 
 //generic classes 
-class DataStorage <T> { // #6  primative data 그리고 object를 구분하기 위해서 처음부터 이렇게 하는 것이 좋다. <T extends string | number | boolean >
+class DataStorage <T> { // #6 데이터타입으로 치환될 T 값으로 primative data 그리고 object를 구분하기 위해서 처음부터 이렇게 하는 것이 좋다. <T extends string | number | boolean >
+                        // <T extends {}>
   private data :T[] = [];
   addItem(item :T ){
     this.data.push(item);
@@ -140,3 +141,28 @@ console.log(objStorage.getItems()); //#2
 
 
 
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function createCourseGoal1(title: string, description: string, date: Date) :CourseGoal{ //#d
+  // return {title : title, description:description, completeUntil: date}
+  let courseGoal : Partial<CourseGoal>  = {}; //partial<타입> 타입의 부분만 있어도 된다. , <CourseGoal>만 있다면, 오류다. courseGoal은 {} <- title, description, completeUntil 이 세가지의 속성을 물려 받지 못하고, 빈 객체를 할당받기 때문이다.
+                                              //partial을 사용했기 때문에 속성종 일부분만 있어도 된다. 
+  courseGoal.title = title;  //#a
+  courseGoal.description = description;  //#b
+  courseGoal.completeUntil = date;  //#c
+
+  //return courseGoal; // Partial<CourseGoal>은 CourseGoal의 부분일 뿐, 정확한 CourseGoal이 될 수 없다. 
+  return courseGoal as CourseGoal; //우리가 작성한 #a, #b, #c에 의해서 모든 속성을 갖고 있는 CourseGoal라는 것을 알고 있기 때문에, as로 typecasting을 할 수 있다. 
+}
+
+// const names = ['Max', "Anna"];
+// names.push('Manu'); //error가 나지 않는다. reference. 
+// names.pop(); //error가 나지 않는다. reference. 
+
+const names: Readonly<string[]> = ['Max', 'Anna']
+//names.push('Manu'); //error
+//names.pop(); //error

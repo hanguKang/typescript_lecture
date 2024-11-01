@@ -1,3 +1,5 @@
+//decorator는 클래스가 정의될 때 실행되기 때문에 event listener를 덧붙힐 수 없다. runtime에 실행되는 것이 아니기 때문이다. 
+
 function  Logger(LogString : string){
   console.log("Logger FACTORY"); //순서 I
 
@@ -14,9 +16,9 @@ function  Logger(LogString : string){
 //   console.log("WithTemplate FACTORY"); //순서 II
 
 //   //순서 III
-//   return function ( constructor: any){ //constructor타입으로 Function을 사용할 수 없는 이유는 Functio타입은 일반 함수타입이지 생성자 함수를 가리키지 않는다. 
-//                                        // #1에서 new 키워드를 사용해서 constructor()로 instance할 수 없다. 
-//                                        //모든 함수가 new 키워드를 사용해 instance를 생성할 수는 없다.
+//   return function ( constructor: any){ // constructor타입으로 Function을 사용할 수 없는 이유는 Function 타입은 일반 함수타입을 가리킨다. 생성자 함수를 가리키지 않는다. 
+//                                        // 일반 함수는 #1에서 new 키워드를 사용해서 constructor()를 실행 --> 생성자 함수로써 instance할 수 없다. 
+//                                        // 모든 함수가 new 키워드를 사용해 instance를 생성할 수는 없다.
 //     const hookEl = document.getElementById(hookId);
 //     const p = new constructor(); // #1
 //     if(hookEl){
@@ -31,11 +33,12 @@ function WithTemplate(template: string, hookId : string){
     console.log("WithTemplate FACTORY"); //순서 II
   
     //순서 III
-    return function <T extends { new(...args: any[]): {name: string} }> ( originalConstructor: T){ 
+    return function <T extends { new(...args: any[]): {name: string} }> ( originalConstructor: T){  // new 키워드로 인스턴스화가 가능한 object타입(클래스)-->{new()}, 인스턴스화된 객체가 name이라는 문자열 속성을 가지는 클래스에 종속된다. ,  new(...args: any[]) --> 생성자 타입을 의미한다. 즉 생성자를 가진 클래스를 의미한다. ...args: any[] --> 어떤 매개변수든 받을 수 있는 생성자를 가질 수 있음을 의미한다. , 파라미터 originalConstructor는 생성자를 갖고 있는 name속성을 갖고 있는 원본 클래스(때문에 name속성을 갖는 객체를 상속받는 T이다. T는 Person_deco이다.  name속성을 갖고 있는 클래스이기 때문이다. )를 의미한다.
+      
       return class extends originalConstructor{
-        constructor(...args: any[]){ // typescript에서 '_' 파라미터는 파라미터를 받아들이겠지만, 사용하지 않겠다는 뜻이다. 
-          super();
-          this.name = args[0]//'테스트';
+        constructor(...args: any[]){  // 파라미터로 '_' ex> (..._:any[]) 이렇게 사용하면 이 파라미터를 사용하지 않겠다는 뜻이다. #aaa를 사용하기 때문에 ...args라고 씀.
+          super(); //Person_deco의 생성자를 의미한다. 
+          this.name = args[0] //#aaa
           console.log('Redering template');
           const hookEl = document.getElementById(hookId);          
           if(hookEl){
@@ -48,12 +51,12 @@ function WithTemplate(template: string, hookId : string){
     }
   }
 
-//#decorator function의 실행 순서는 bottom up방식이다. 
-@Logger(' LOGGING - PERSON ') //#B decorator가 나중에 렌더링된다. (렌더링은 #B decorator를 실행시키는 Factory가 먼저 실행 - Logger)
-@WithTemplate('<h2> My Person_deco Object</h2>','app') // #A decorator가 먼저 렌더링된다.  (A decorator를 실행시키는 Factory가 나중에 실행)
+
+@Logger(' LOGGING - PERSON ') 
+@WithTemplate('<h2> My Person_deco Object</h2>','app') 
 class Person_deco {
   name = 'Max';
-  constructor(msg: string | undefined){
+  constructor(msg: string | undefined){ 
     console.log('Creating person object~~!!!');
     if(msg){
       this.name = msg;
