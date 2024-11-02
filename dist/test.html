@@ -4,10 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    .msg { display:none; }
+    #test-input:placeholder-shown + .msg { display:block; }
+    
+  </style>
 </head>
 <body>
+
   <button id="btn" type="button"> click me !! </button>
   <script src="test.js"></script>
+  <script src="lect_106_decorators.js" defer></script>
   <script>
     function* generateSequence(start, end) {
       for (let i = start; i <= end; i++) yield i;
@@ -33,6 +40,146 @@
     }
 
     console.log(str);
-  </script>
+
+
+    let obj = {
+        toString() {
+            console.log('toString() called');
+        },
+
+        hi(){
+          console.log('hi() colled');
+        }
+    };
+    let foo = {};
+    foo[obj] = 'Key is obj'; // toString() called
+    console.log('wait a minute ------------------------------------------');
+    console.log(foo[obj]);
+      </script>
+
+
+
+
+<form>
+  <input type="text" placeholder="lalala" id="test-input">
+  <p class="msg">보이나</p>
+</form>
+
+
+<div id="app"></div>
+
+
+
+<figure>
+  <img src="" alt="">
+  <figcaption>
+    <h1>노동자 종합지원센터 현황도</h1>
+    <p>서울시 노동자종합지원센터현황은현재 시립 - 2개, 구립 - 16개, 미설치 - 7개 로 구성되어 있다. </p>
+    <h2>도심권</h2>
+    <ul>
+      <li>은평 - 구립</li>
+      <li>서대문 - 구립</li>
+      <li>종로 - 시립</li>
+      <li>마포 - 구립</li>
+      <li>중구 - 구립</li>
+      <li>용산 - 구립</li>
+    </ul>
+    <h2>동북권</h2>
+    <ul>
+      <li>도봉 - 구립</li>
+      <li>강북 - 구립</li>
+      <li>노원 - 구립</li>
+      <li>성북 - 구립</li>
+      <li>중랑 - 구립</li>
+      <li>동대문 - 미 설치</li>
+      <li>성동 - 구립</li>
+      <li>광진 - 구립</li>
+    </ul>
+    <h2>동남권</h2>
+    <ul>
+      <li>서초 - 미 설치</li>
+      <li>강남 - 미 설치</li>
+      <li>송파 - 시립</li>
+      <li>강동 - 미 설치</li>
+    </ul>
+    <h2>서남권</h2>
+    <ul>
+      <li>강서 - 구립</li>
+      <li>양천 - 미 설치</li>
+      <li>영등포 - 구립</li>
+      <li>구로 - 구립</li>
+      <li>금천 - 미 설치</li>
+      <li>동작 - 미 설치</li>
+      <li>관악 - 구립</li>
+    </ul>   
+  </figcaption>
+</figure>
+
+<p>  '※'는 주의 사항</p>
+<h4 style="text-align:center"><span style="display:inline-block; padding:10px 20px; border:1px solid #ccc;">통합주차 홈페이지 회원가입을 위한 개인정보 수집 이용 안내</span></h4>
+<br>
+<p>부평구시설관리공단은 「지방공기업법」 제2조 및 같은 법 시행령 제2조, 「개인정보 보호법」 제15조제1항제3호, 인천광역시부평구 주차장 설치 및 관리 조례 제3조, 제4조, 제9조, 제11조에 따라 정보주체의 개인정보를 동의 없이 수집할 수 있으며, 그 수집 목적의 범위에서 이용할 수 있습니다. 자세한 사항은 “부평구시설관리공단 개인정보처리방침”에서 확인하시기 바랍니다.(<a href="https://www.bpss.or.kr:444/open_content/main/guide/policy.jsp" target="_blank" title="새 창" style="color:blue; text-decoration:underline;">개인정보처리방침 바로가기</a>)</p>
+<p>부평구시설관리공단은 관계법령 등에서 정하는 소관 업무의 수행을 위하여 다음과 같이 개인정보를 수집 및 이용합니다. 수집된 개인정보는 정해진 목적 이외의 용도로는 이용되지 않으며, 수집 목적이 변경될 경우 공단 홈페이지 개인정보처리방침을 통해 안내하는 등 필요한 조치를 이행할 예정입니다.</p>
+<br>
+<br>
+<br>
+<br>
+<h5>1. 개인정보 수집 및 이용에 관한 사항</h5>
+<br>
+<div class="sub_mt">
+  <table class="tableA">
+    <caption>개인정보 수집 및 이용에 관한 사항에 대한 수집·이용 항목,	수집·이용 목적,	보유기간 정보 제공</caption>
+    <thead>
+      <tr>
+        <th scope="col">수집·이용 항목</th>
+        <th scope="col">수집·이용 목적</th>
+        <th scope="col">보유기간</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <strong style="font-weight:bold; color:blue; text-decoration:underline;">필수: 이름, 핸드폰, 차량번호 <br>
+          선택: 생년월일, 집주소, 직장주소, 배기량, 경차여부, 저공해차량여부, 승용차요일제참여여부, 국가유공자여부, 장애인여부</strong>	
+        </td>
+        <td><strong style="font-weight:bold; color:blue; text-decoration:underline;">고지서 발송, 회원관리, 서비스 이용 및 정보안내, 요금감면, 차량 소유자 확인 및 차종 확인, 가점 산정</strong>	</td>
+        <td><strong style="font-weight:bold; color:blue; text-decoration:underline;">준영구</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<p>※ 민원인의 지속적인 이용을 위해 준영구 보관하며, 정보주체의 회원탈퇴 및 파기 요청 시 즉시 파기</p>
+<p>※ 선택항목은 작성하지 않거나 구비서류를 제출하지 않을 수 있으며, 미작성 및 구비서류 미제출 시 서비스 제한은 없으나 요금 감면 및 가점 산정에 제한이 있을 수 있습니다.(구비서류는 확인 후 반환 또는 즉시 파기)</p>
+<p>※ 신청서 종이서류 보유기간: 1년</p>
+<br>
+<br>
+<br>
+<h5>2. 개인정보 제공에 관한 사항</h5>
+<br>
+<div class="sub_mt">
+  <table class="tableA">
+    <caption>개인정보 제공에 관한 사항에 대한 제공받는자, 제공 항목, 제공 목적, 이용 기간 정보 제공</caption>
+    <thead>
+      <tr>
+        <th scope="col">제공받는자</th>
+        <th scope="col">제공 항목</th>
+        <th scope="col">제공 목적</th>
+        <th scope="col">이용 기간</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong style="font-weight:bold; color:blue; text-decoration:underline;">부평구청 </strong></td>
+        <td><strong style="font-weight:bold; color:blue; text-decoration:underline;">이름, 차량번호	</strong></td>
+        <td><strong style="font-weight:bold; color:blue; text-decoration:underline;">가점 대상 여부 확인</strong></td>
+        <td><strong style="font-weight:bold; color:blue; text-decoration:underline;">1개월</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>		
+
+
 </body>
 </html>
