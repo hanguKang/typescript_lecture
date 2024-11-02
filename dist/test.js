@@ -11,8 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const capt = {
     name: "테스트",
     age: 11,
-<<<<<<< HEAD
-=======
     skill: 100
 >>>>>>> refs/remotes/origin/main
 };
@@ -47,12 +45,7 @@ function fetchAuthorName(postId) {
     });
 }
 fetchAuthorName(1).then((name) => console.log("name : ", name));
-<<<<<<< HEAD
-// this 알아내기
-class Person100 {
-=======
 class Person_2 {
->>>>>>> refs/remotes/origin/main
     constructor() {
         this.name = "person";
         this.getMyName = () => {
@@ -63,24 +56,13 @@ class Person_2 {
         return this.name;
     }
 }
-<<<<<<< HEAD
-const person3 = new Person100();
-console.log(person3.getName()); // person
-const personName = person3.getName;
-=======
 const person2 = new Person_2();
 console.log(person2.getName);
 const personName = person2.getName;
->>>>>>> refs/remotes/origin/main
 console.log('1번 this');
 console.log('2번 this');
-<<<<<<< HEAD
-const personName2 = person3.getMyName;
-console.log(personName2()); // person
-=======
 const personName2 = person2.getMyName;
 console.log(personName2());
->>>>>>> refs/remotes/origin/main
 let user1 = {
     name: "John",
     surname: "Smith"
@@ -93,15 +75,6 @@ Object.defineProperty(user1, 'fullName', {
         [this.name, this.surname] = value.split(" ");
     }
 });
-<<<<<<< HEAD
-//alert(user1.fullName); // John Smith
-//for(let key in user1) alert(key); // name, surname
-//  user1.fullName('Kang hangu');
-console.log('fullName');
-console.log(user1.fullName);
-user1.fullName = 'cake baskin';
-=======
->>>>>>> refs/remotes/origin/main
 console.log(user1.fullName);
 class Handler {
     constructor() {

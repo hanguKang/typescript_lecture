@@ -12,6 +12,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "build": "tsc --build",
     "clean": "tsc --build --clean",
     "start": "lite-server"
@@ -19,6 +20,8 @@
   "dependencies": {
     "tslint-config-prettier": "^1.18.0"
 =======
+=======
+>>>>>>> refs/remotes/origin/main
     "build": "tsc --build -w",
     "clean": "tsc --build --clean"
 >>>>>>> refs/remotes/origin/main
