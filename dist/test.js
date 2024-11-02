@@ -10,8 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 const capt = {
     name: "테스트",
-    age: 10,
-    skill: 100
+    age: 11,
 };
 let person = {
     name: 'mark',
@@ -46,7 +45,7 @@ function fetchAuthorName(postId) {
 }
 fetchAuthorName(1).then((name) => console.log("name : ", name));
 // this 알아내기
-class Person {
+class Person100 {
     constructor() {
         this.name = "person";
         this.getMyName = () => {
@@ -57,13 +56,13 @@ class Person {
         return this.name;
     }
 }
-const person1 = new Person();
-console.log(person1.getName()); // person
-const personName = person1.getName;
+const person3 = new Person100();
+console.log(person3.getName()); // person
+const personName = person3.getName;
 console.log('1번 this');
 //console.log(personName());          // undefined
 console.log('2번 this');
-const personName2 = person1.getMyName;
+const personName2 = person3.getMyName;
 console.log(personName2()); // person
 let user1 = {
     name: "John",
@@ -80,4 +79,7 @@ Object.defineProperty(user1, 'fullName', {
 //alert(user1.fullName); // John Smith
 //for(let key in user1) alert(key); // name, surname
 //  user1.fullName('Kang hangu');
+console.log('fullName');
+console.log(user1.fullName);
+user1.fullName = 'cake baskin';
 console.log(user1.fullName);

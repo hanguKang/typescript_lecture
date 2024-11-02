@@ -4,6 +4,7 @@
   "description": "typescript 테스트하기",
   "main": "index.js",
   "devDependencies": {
+    "lite-server": "^2.6.1",
     "ts-node": "^10.9.2",
     "tsd": "^0.31.0"
   },
@@ -11,6 +12,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --build",
-    "clean": "tsc --build --clean"
+    "clean": "tsc --build --clean",
+    "start": "lite-server"
+  },
+  "dependencies": {
+    "tslint-config-prettier": "^1.18.0"
   }
 }
