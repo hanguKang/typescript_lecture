@@ -12,7 +12,6 @@ const capt = {
     name: "테스트",
     age: 11,
     skill: 100
->>>>>>> refs/remotes/origin/main
 };
 let person_1 = {
     name: 'mark',

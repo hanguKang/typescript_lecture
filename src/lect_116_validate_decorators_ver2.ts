@@ -9,45 +9,64 @@ const addValidator = (input: string, type: string) => {
 const Required2 = (_: any, input: string) => addValidator(input, 'required');
 const Maxlength2 = (_: any, input: string) => addValidator(input, 'maxlength');
 const Positive2 = (_: any, input: string) => addValidator(input, 'positive');
- 
+console.log(config);
 const validate2 = (course: any) =>  {
-  let isValidStr :string = '';
-  Object.entries(config).every( ([input, types]) => // types에는 requried, maxlength가 2개 들어가거나, requried 와 positive 2개가 들어갈 것이다.     
-    // types.every(type => 
-    //   type === 'required' && course[input] || 
-    //   type === 'positive' && course[input] > 0 ||
-    //   type === 'maxlength' && course[input].length < 5
-    // )
-    
-    types.every(type=>{
-      // if( !(type === 'required' && course[input]) ){
-      //   return 'none Value';
-      // }
+  //Object.entries(config).every( ([input, types]) =>
+  // types.every(type => 
+  //   type === 'required' && course[input] || 
+  //   type === 'positive' && course[input] > 0 ||
+  //   type === 'maxlength' && course[input].length < 5
+  // )
+  //)
+  type isValidEl = {required:boolean; maxlength:string; positive:string;}; 
+  let isValid: isValidEl =  {required:true, maxlength:'less', positive:'minus'};
 
-      // if( !(type === 'positive' && course[input] > 0 ) ){
-      //   return 'none Positive';
-      // }
+  Object.entries(config).forEach( ([input, types]) => {// types에는 requried, maxlength가 2개 들어가거나, requried 와 positive 2개가 들어갈 것이다.   
+      //console.log(input, types);
+      types.forEach(type=>{
+        // if( !(type === 'required' && course[input]) ){
+        //   return 'none Value';
+        // }
 
-      // if( !(type === 'maxlength' && course[input].length < 5) ){
-      //   return 'none Value';
-      // }
-      switch (type){ 
-        case 'required':
-          isValidStr += course[input]? 'being' : 'required';
-        case 'positive':
-          isValidStr += (course[input] > 0)? 'positive': 'negative'; 
-        case 'maxlength':
-          isValidStr += (course[input].length < 5)? 'ok less 5' : 'no over 5';
-      }
-      return isValidStr;
-    })
-  )
+        // if( !(type === 'positive' && course[input] > 0 ) ){
+        //   return 'none Positive';
+        // }
+
+        // if( !(type === 'maxlength' && course[input].length < 5) ){
+        //   return 'none Value';
+        // }
+        console.log(type);
+        switch (type){ 
+          case 'required':
+            isValid.required = course[input]? false : true;
+            if(isValid.required){
+              alert(  input + '항목은 필수 항목입니다.');
+            }
+            break;
+          case 'maxlength':
+            isValid.maxlength = (course[input].length < 5)? 'less' : 'greater';
+            if(isValid.maxlength === 'greater' && !isValid.required){
+              alert( input + '항목은 5글자 내로 작성합니다.');
+            }
+            break;
+          case 'positive':
+            isValid.positive = (course[input] > 0 )? 'plus': 'minus'; 
+            if(isValid.positive === 'minus'){
+              alert( input + '항목은 양수만 가능합니다.');
+            }
+            break;
+        }// switch End
+        
+      }) //types.every End
+       
+  }) // Object.entries(config).every End
+  return isValid
 }
 
 class Course2 {
   
-  @Required2 @Maxlength2 title: string;
-  @Required2 @Positive2 price: number;
+  @Maxlength2 @Required2 title: string;
+  @Positive2 @Required2 price: number;
  
   constructor(title: string, price: number) {
     this.title = title;
@@ -73,6 +92,6 @@ courseForm2.addEventListener('submit', (e)=>{
   //   alert('invalid Value');
   //   return false;
   // }
-  alert(validate2(course2));
+  validate2(course2);
   console.log(course2);
 });

@@ -14,19 +14,35 @@ const addValidator = (input, type) => {
 const Required2 = (_, input) => addValidator(input, 'required');
 const Maxlength2 = (_, input) => addValidator(input, 'maxlength');
 const Positive2 = (_, input) => addValidator(input, 'positive');
+console.log(config);
 const validate2 = (course) => {
-    let isValidStr = '';
-    Object.entries(config).every(([input, types]) => types.every(type => {
-        switch (type) {
-            case 'required':
-                isValidStr += course[input] ? 'being' : 'required';
-            case 'positive':
-                isValidStr += (course[input] > 0) ? 'positive' : 'negative';
-            case 'maxlength':
-                isValidStr += (course[input].length < 5) ? 'ok less 5' : 'no over 5';
-        }
-        return isValidStr;
-    }));
+    let isValid = { required: true, maxlength: 'less', positive: 'minus' };
+    Object.entries(config).forEach(([input, types]) => {
+        types.forEach(type => {
+            console.log(type);
+            switch (type) {
+                case 'required':
+                    isValid.required = course[input] ? false : true;
+                    if (isValid.required) {
+                        alert(input + '항목은 필수 항목입니다.');
+                    }
+                    break;
+                case 'maxlength':
+                    isValid.maxlength = (course[input].length < 5) ? 'less' : 'greater';
+                    if (isValid.maxlength === 'greater' && !isValid.required) {
+                        alert(input + '항목은 5글자 내로 작성합니다.');
+                    }
+                    break;
+                case 'positive':
+                    isValid.positive = (course[input] > 0) ? 'plus' : 'minus';
+                    if (isValid.positive === 'minus') {
+                        alert(input + '항목은 양수만 가능합니다.');
+                    }
+                    break;
+            }
+        });
+    });
+    return isValid;
 };
 class Course2 {
     constructor(title, price) {
@@ -35,12 +51,12 @@ class Course2 {
     }
 }
 __decorate([
-    Required2,
-    Maxlength2
+    Maxlength2,
+    Required2
 ], Course2.prototype, "title", void 0);
 __decorate([
-    Required2,
-    Positive2
+    Positive2,
+    Required2
 ], Course2.prototype, "price", void 0);
 const courseForm2 = document.querySelector('form');
 courseForm2.addEventListener('submit', (e) => {
@@ -50,6 +66,6 @@ courseForm2.addEventListener('submit', (e) => {
     const title = titleEl.value;
     const price = +priceEl.value;
     const course2 = new Course2(title, price);
-    alert(validate2(course2));
+    validate2(course2);
     console.log(course2);
 });
