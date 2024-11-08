@@ -94,6 +94,7 @@ class Nav {
       let action : string = targetElm.dataset.action; //this의 자식 요소에게 각각 다른 이멘트를 매칭하고 싶을 때 this의 각 자식 요소의 data-action="save" .. 등 속성을 지정하고 사용해서 Nav 
       if(action == "save" || action == "load" ||  action == "search" ) this[action](targetElm);
       return false; 
+
     }
     if (event.target.parentElement.tagName == "LI") {
       //alert(11111);
@@ -102,7 +103,9 @@ class Nav {
       //console.log(action);
       if (action) {
         //this[action]();
-        if(action == "save" || action == "load" ||  action == "search" ) this[action](targetElm);
+        if(action == "save" || action == "load" ||  action == "search" ) {
+          this[action](targetElm); 
+        }
       }
     }
   }
