@@ -5,18 +5,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-const configValid = {};
-const addValid = (input, type) => {
-    configValid[input] =
-        configValid[input]
-            ? [...configValid[input], type]
+const configValid_1 = {};
+const addValid_1 = (input, type) => {
+    configValid_1[input] =
+        configValid_1[input]
+            ? [...configValid_1[input], type]
             : [type];
 };
-const Password = (target, propName) => addValid(propName, 'password');
-const MinMax = (target, propName) => addValid(propName, 'minmax');
-const Maxlength_1 = (target, propName) => addValid(propName, 'maxlength');
-const Required_1 = (target, propName) => addValid(propName, 'required');
-const validateInput = (_this) => {
+const Password_1 = (target, propName) => addValid_1(propName, 'password');
+const MinMax_1 = (target, propName) => addValid_1(propName, 'minmax');
+const Maxlength_2 = (target, propName) => addValid_1(propName, 'maxlength');
+const Required_2 = (target, propName) => addValid_1(propName, 'required');
+const validateInput_1 = (_this) => {
     let isValid = { required: true, maxlength: true, minMax: true, password: true };
     let validRequiredKeep = true;
     let validMaxLengthKeep = true;
@@ -67,7 +67,7 @@ const validateInput = (_this) => {
     }
     return isValid;
 };
-const AutoBind_1 = (_, _2, descriptor) => {
+const AutoBind_2 = (_, _2, descriptor) => {
     const originalMethod = descriptor.value;
     const adjDescriptor = {
         configurable: true,
@@ -79,12 +79,10 @@ const AutoBind_1 = (_, _2, descriptor) => {
     };
     return adjDescriptor;
 };
-class ProjectInput {
+class ProjectInput_1 {
     constructor() {
         this.templateElement = document.getElementById('project-input');
         this.hostElement = document.getElementById('app');
-        console.log(this.templateElement);
-        console.log(this.templateElement.content);
         const importedNode = document.importNode(this.templateElement.content, true);
         this.element = importedNode.firstElementChild;
         this.element.id = 'user-input';
@@ -114,21 +112,21 @@ class ProjectInput {
     }
 }
 __decorate([
-    Maxlength_1,
-    Required_1
-], ProjectInput.prototype, "titleInputElement", void 0);
+    Maxlength_2,
+    Required_2
+], ProjectInput_1.prototype, "titleInputElement", void 0);
 __decorate([
-    Password,
-    MinMax,
-    Required_1
-], ProjectInput.prototype, "descriptionInputElement", void 0);
+    Password_1,
+    MinMax_1,
+    Required_2
+], ProjectInput_1.prototype, "descriptionInputElement", void 0);
 __decorate([
-    Required_1
-], ProjectInput.prototype, "peopleInputElement", void 0);
+    Required_2
+], ProjectInput_1.prototype, "peopleInputElement", void 0);
 __decorate([
-    AutoBind_1
-], ProjectInput.prototype, "gatehrUserInput", null);
+    AutoBind_2
+], ProjectInput_1.prototype, "gatehrUserInput", null);
 __decorate([
-    AutoBind_1
-], ProjectInput.prototype, "submitHandler", null);
-const prjInput = new ProjectInput();
+    AutoBind_2
+], ProjectInput_1.prototype, "submitHandler", null);
+const prjInput_1 = new ProjectInput_1();
