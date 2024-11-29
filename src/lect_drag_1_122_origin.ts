@@ -32,7 +32,7 @@ class ProjectState {
       people: numOfPeople
     }; 
     this.projects.push(newProject); //#DDD-1 : 배열에 값으로 또 배열을 넣어버림.
-    for( const listenerFn of this.listeners ){
+    for( const listenerFn of this.listeners ){ 
        listenerFn(this.projects.slice()); //#ccc-1 : 실제 원본 데이터(this.projects를 원소화해서)를 넘기면 reference(원본 참조)를 넘기기 때문에 문제가 생길 수 있다. 때문에 복사본 slice 메소드를 사용해서 함수에 파라미터를 넘긴다. ---> 클래스 projectList에서 연결된 작동을 할 수 있도록 한다. 
     }
   }
