@@ -52,7 +52,7 @@ class Nav {
     let siblings = (selfElem: HTMLElement) =>{
       if( !!selfElem.parentElement ){
         [...selfElem.parentElement.children].filter((e) => {
-          if (e != t) {
+          if (e != selfElem) {
             e.classList.remove("active");
           }
         });
@@ -90,7 +90,7 @@ class Nav {
     //console.dir(event.target.parentElement.tagName);
     if(event.currentTarget.parentElement.tagName == "NAV"){
       //console.dir(event.currentTarget.parentElement.tagName);
-      let targetElm = event.currentTarget.parentElement;
+      let targetElm = event.currentTarget.parentElement! as HTMLElement;
       let action : string = targetElm.dataset.action; //this의 자식 요소에게 각각 다른 이멘트를 매칭하고 싶을 때 this의 각 자식 요소의 data-action="save" .. 등 속성을 지정하고 사용해서 Nav 
       if(action == "save" || action == "load" ||  action == "search" ) this[action](targetElm);
       return false; 
@@ -98,7 +98,7 @@ class Nav {
     }
     if (event.target.parentElement.tagName == "LI") {
       //alert(11111);
-      let targetElm = event.target.parentElement;
+      let targetElm = event.target.parentElement! as HTMLElement;
       let action = targetElm.dataset.action; //this의 자식 요소에게 각각 다른 이멘트를 매칭하고 싶을 때 this의 각 자식 요소의 data-action="save" .. 등 속성을 지정하고 사용해서 Nav 클래스에 미리 만둘어둔 save, load, search등을 사용할 수 있다.
       //console.log(action);
       if (action) {
