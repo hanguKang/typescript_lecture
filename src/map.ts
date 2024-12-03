@@ -12,19 +12,29 @@
 
 
 <script>
-let current_url = window.location.href;
+let current_url = window.location.href
 let active_hash = new URL(current_url).hash;
 
 
 
+function updateHash(newHash) {
+	history.replaceState(null, "", newHash)
+}
 
-window.addEventListener("hashchange", function() {
-  var hash = location.hash;
-  if (hash !== "") {
-    let target = document.querySelector(hash);
+function changeHash(){
+	let hash = location.hash;
+	console.log('hash',hash);
+	if (hash !== "") {
+	   let target = document.querySelector(hash);
 	$(target).trigger('click');
-  }
-});
+
+	let newPath = current_url.replace(active_hash, hash);
+	console.log('newPath',newPath);
+	updateHash(newPath);
+	}
+}
+
+window.addEventListener("hashchange",changeHash);
 
 //let item = "${item.PSITN}";
 //let param = "${requestScope.param}";
@@ -465,6 +475,13 @@ window.addEventListener("hashchange", function() {
 	        let btnNm = $('.shelter_info .tab_wrap > li.active button').text().replace("선택","");
 	        $('.table_cap_tit').text(btnNm); // 2024 webaccess table caption 제목 넣기
 	        $('title').text(btnNm + ' <  ' + $('title').text());
+
+	        let _id = '#'+$(this).attr('id');
+	        let location = window.location;
+	    	let newPath = location.href.replace(location.hash, _id);
+	    	updateHash(newPath);
+
+
 	    });
 	});
 
