@@ -91,7 +91,7 @@ class Nav {
     if(event.currentTarget.parentElement.tagName == "NAV"){
       //console.dir(event.currentTarget.parentElement.tagName);
       let targetElm = event.currentTarget.parentElement! as HTMLElement;
-      let action : string = targetElm.dataset.action; //this의 자식 요소에게 각각 다른 이멘트를 매칭하고 싶을 때 this의 각 자식 요소의 data-action="save" .. 등 속성을 지정하고 사용해서 Nav 
+      let action : string = targetElm.dataset.action as string; //this의 자식 요소에게 각각 다른 이멘트를 매칭하고 싶을 때 this의 각 자식 요소의 data-action="save" .. 등 속성을 지정하고 사용해서 Nav 
       if(action == "save" || action == "load" ||  action == "search" ) this[action](targetElm);
       return false; 
 

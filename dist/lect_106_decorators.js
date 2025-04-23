@@ -11,8 +11,8 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 function Logger(LogString) {
     console.log("Logger FACTORY");
     return function (constructor) {
-        console.log(LogString);
-        console.log(constructor);
+        console.log('LogString', LogString);
+        console.log('constructor', constructor);
     };
 }
 function WithTemplate(template, hookId) {
@@ -175,7 +175,7 @@ function changeAge(newAge) {
 }
 const users = new Users();
 const newAge = users.age;
-console.log(newAge);
+console.log('newAge', newAge);
 function format(formStr) {
     return function (target, propertyName) {
         let value = target[propertyName];
@@ -201,6 +201,7 @@ instance_greet.greeting = 'World';
 console.log(instance_greet.greeting);
 function MinLength(min) {
     return function (target, propertyName, parameterIndex) {
+        console.log('------------------------ target -----------------------', target);
         target.validators = {
             minLength(args) {
                 return args[parameterIndex].length >= min;

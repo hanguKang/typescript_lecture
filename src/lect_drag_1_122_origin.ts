@@ -33,7 +33,8 @@ class ProjectState {
     }; 
     this.projects.push(newProject); //#DDD-1 : 배열에 값으로 또 배열을 넣어버림.
     for( const listenerFn of this.listeners ){ 
-       listenerFn(this.projects.slice()); //#ccc-1 : 실제 원본 데이터(this.projects를 원소화해서)를 넘기면 reference(원본 참조)를 넘기기 때문에 문제가 생길 수 있다. 때문에 복사본 slice 메소드를 사용해서 함수에 파라미터를 넘긴다. ---> 클래스 projectList에서 연결된 작동을 할 수 있도록 한다. 
+       listenerFn(this.projects.slice()); //#ccc-1 : 실제 원본 데이터(this.projects를 원소화해서)를 넘기면 reference(원본 참조)를 넘기기 때문에 문제가 생길 수 있다. 때문에 복사본 slice 메소드를 사용해서 함수에 파라미터를 넘긴다. ---> 클래스 projectList에서 연결된 작동을 할 수 있도록 한다. 복사할 때 다른 버전 [...this.projects]
+
     }
   }
 }
@@ -95,7 +96,7 @@ class ProjectList {
     this.assignedProjects = []; //초기화
 
     const importedNode = document.importNode(this.templateElement.content, true); //this.templateElement.content의 자식노드도 가져올 거면 true
-    this.element = importedNode.firstElementChild as HTMLElement;
+    this.element = importedNode.firstElementChild as HTMLElement; //section요소
     this.element.id = `${this.type}-projects`;
 
     
@@ -119,7 +120,7 @@ class ProjectList {
   }
 
   private renderContent(){
-    const listId = `${this.type}-projects-list`;
+    const listId = `${this.type}-projects-list`; //active 또는 finished 멤버 타입으로 목록 설정
     this.element.querySelector('ul')!.id = listId;
     this.element.querySelector('h2')!.textContent = this.type.toUpperCase() + ' PROJECTS'
   }
@@ -207,7 +208,22 @@ class ProjectInput_3 {
     }
 }
 
+
+//history
+//1. html의 template태그 내의 form를 configure하고 유저가 input요소들의 값들을 입력한 후에 submit버튼을 클릭하면 - 그 전에 이미 ProjectList('active')와 ProjecList('finished')는 인스턴스를 만들어 놓았다. 그리고 인스턴스화 과정 중에 projectState.addListener를 실행하여 (html랜더링 대기상태이며 각 'active'와 'finished' 인스턴스의 멤버 assignedProjects에 값을 할당하지 않고 있다. submit버튼 누르기 전의 상황 -
+//2. 유저는 input값들을 입력하고 -submit버튼을 클릭해야 ProjectInput_3에서 projectStat.addProject를 사용해서 값을 입력 - input의 각 값들을,  클래스 ProjectInput_3의 멤버필드 값으로 할당하고 validate를 하고 projectState.addProject를 실행할 때 배열의 원소(input요소들의 값들을 하나의 객체화한다)값으로 할당한다.- 하고 그 값에 대해서 이미 생성후 기다리고 있는 각 ProjectList 인스턴스 'active', 'finished'를 실행할 때 projectState.addListener에 저장된 이벤트 리스너를 즉각 실행한다. 
+//3. projectState.addListener에 저장된 이벤트 리스너는 
+//3-1. 'active', 'finished'의 각 인스턴스들의 멤버필드 assignedProjects에 유저의 값들이 할당하고,
+//3-2.  각 인스턴스에 해당하는 html랜더링 실행한다. 
+//물론, submit하자마자 validate한 후에는 값들을 모두 clear한다.   
 const prjInput_3 = new ProjectInput_3();
 
+//2. ProjectList 클래스에서 active 그리고 finished라고 private한 멤버 type에 할당한다. 
+// history 1에서 submit버튼을 클릭하기 전에 html 랜더링 준비가 끝난상황이고 유저가 데이터를 입력하고 submit을 클릭해야 history 1.에서 데이터(input의 각 값들)에 대한 밸리데이팅을 우선하고 2.에서 그 값을 갖고 준비된 html을 랜더링을 한다. 
+//2-1. active는 현재 활성화되고 있는 프로젝트 
+//2-2. finished는 현재 끝난 프로젝트 
+
+//2-1. ProjectList의 constructor에서 
+// projectState.addListener로 projectState.listeners-배열-의 원소 값으로 화살표 함수(이 함수는 클래스 ProjectList.assignedProjects-배열-의 원소 값으로 history 1.에서 할당한 projectState.addProject의 값 )를 할당한다. 
 const activePrjList = new ProjectList('active');
 const finishedPrjList = new ProjectList('finished');

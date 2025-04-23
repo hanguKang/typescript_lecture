@@ -16,7 +16,7 @@
 // 만약 어떤 자료가 올지 모른다면, Promise<any> 를 사용하면 된다.
 // const promise: Promise<string> = new Promise((resolve, reject)=>{ #1 현재 promise는 Promise<string>이다.
 //   setTimeout(()=>{
-//     resolve('This is done!'); //#1이 Promise<number>라면 resolive(숫자)가 되어야 한다. 
+//     resolve('This is done!'); //#1이 Promise<number>라면 resolve(숫자)가 되어야 한다. 
 //   },2000);
 // });
 
@@ -35,12 +35,12 @@
 // mergeObj.age; // #1. 여기서 문제는 compile할 때 typescript에서 age라는 속성은 함수 merge에서 정의 내린, objA: object, objB: object에 할당되어 있지 않다.
 // typescript는 object에서 age라는 속성이 있을 것이라고 예상할 수 없다. {name:'Max'}, {age:30}는 내가 정의 내린 object이고, 함수 merge를 통해서 return받은 object는 
 // ************************* (중요) 객체가 온다는 것은 알지만, 어떤 속성을 갖는지는 알 수 없기 때문에 사용자 정의 객체까지 compile 시키지 않는다. 
-// 따라서 age를 사용할 수 없다. 사용하고 싶다면 함수에 age속성을 넣으면 되지만, 이는 object를 age속성을 쓰도록 제한시킬 수밖에 없다.
-// 그럼 어떤 타입이 결과로 나올 것인지 지정하는 type casting을 사용해서 typescript에게 미리 알려 주어야 한다. 
+// 따라서 age를 사용할 수 없다. 사용하고 싶다면 초기에 mergeobje에 age속성을 넣으면 되지만, 이는 계속해서 object를 age속성을 쓰도록 제한시킬 수밖에 없다.
+// 즉, 어떤 타입이 결과로 나올 것인지만 결정하는 type casting을 사용해서 typescript에게 미리 알려 주어야 한다. 
 // const mergeObj = merge({name:'Max'}, {age:30}) as {name: string, age:number};
 
 
-//이럴 때 Generic이 필요하다. 
+//그렇기 때문에 이를 해결하기 위해서 Generic이 필요하다. 
 // function merge<T , U >(objA: T, objB: U){
 //   return Object.assign({},objA, objB);    
 // }
@@ -51,6 +51,7 @@
 
 function merge<T extends object, U extends object>(objA: T, objB: U){ // #5
   return Object.assign({},objA, objB);    
+  //return {...objA, ...objB}
 }
 
 
@@ -100,7 +101,7 @@ class DataStorage <T> { // #6 데이터타입으로 치환될 T 값으로 primat
     this.data.push(item);
   }
   removeItem(item : T){
-    //this.data.splice(this.data.indexOf(item), 1); //#3.
+    //this.data.splice(this.data.indexOf(item), 1); //#3. -----------------------------------
     //#4.
     if(this.data.indexOf(item) === -1){
       return;
@@ -123,17 +124,18 @@ const numberStroage = new DataStorage<number>();
 
 const objStorage = new DataStorage<object>();
 objStorage.addItem({name:'Max'}); //#5
-objStorage.addItem({name:'Swartz'});
+objStorage.addItem({name:'Swartz'}); // #6
 objStorage.removeItem({name:'Swartz'}); //#1. {name:'Swartz'}를 지우고 #2를 확인하면 [{name:'Max'}]만 남는다. 
-                                        // ********************* 그런데 #1에서 지우는 {name:'Swartz'} 대신 {name:'Max'}를 지우면 역시 {name:'Max'}만 남는다. 왜 그럴까? 
-                                        //jvaascript의 객체는 reference타입이다. #1에서 작성한 {name:'Max'}는 data에 입력된 객체가 아니라, 새로운 객체이다. 
+                                        // ********************* 그런데 #1에서 {name:'Swartz'}를 지우는 대신 {name:'Max'}를 지우면 역시 {name:'Max'}만 남는다. 왜 그럴까? 
+                                        //javascript의 객체는 reference타입이다. #1에서 작성한 지우려고 하는 {name:'Swartz'}는 data에 입력된 객체가 아니라, 새로운 객체이다. 
                                         //#3의 item을 찾는 것은 기존 data 내부에서 reference를 찾는 것인데 #1의 reference 의 주소가 다르다. 
                                         //#1에서 {name:'Swartz'}를 지워도 실제 data에서 {name:'Swartz'}가 삭제되는 것이 아니라, 
                                         //#3의 this.data.splice(this.data.indexOf(item), 1); 는 찾을 수 없는 주소값(this.data.indexOf(item) ---> -1로 나온다.) 이기 때문에 
                                         //#3은 무조건 마지막 data의 원소를 지우게 된다. 
                                         //#3을 수정해야 한다. 
-//또는 같은 주소를 가질 수 있도록 다음과 같이 #5를 수정한다. 
+//또는 같은 주소를 가질 수 있도록 다음과 같이 #5와 #6을 레퍼런스 타입을 삭제할 수 있거나 수정할 수 있도록 레퍼런스 타입을 저장하도록 해야 한다. 
 //const maxObj = {name: 'Max'}
+//objStorage.addItem(maxObj);
 //objStorage.removeItem(maxObj);
 
 

@@ -19,7 +19,7 @@ const validateInput = (_this : any) : {required:boolean} => {
     let validMinMaxhKeep = true;
     let validPasswordKeep = true;
 
-    //Object.entries(configValid).forEach(([input, types])=>{  //each는 중간에 break, continue를 사용할 수 없다. ---> validateInput 함수를 한 번 호출할 때마다 Object.entries(configValid) 는 @Required 데코레이터들 때문에 3개의 값을 갖고 있다. 3번 할 필요가 없다. required가 모두 3개에 모두 요구되더라도 어떤 요소든 걸리면 나머지는 gatehrUserInput함수의 validateInput함수를 호출하는 중에서 또 걸릴 것이다. 
+    //Object.entries(configValid).forEach(([input, types])=>{  //forEach는 중간에 break, continue를 사용할 수 없다. ---> validateInput 함수를 한 번 호출할 때마다 Object.entries(configValid) 는 @Required 데코레이터들 때문에 각 항목에 대한 값으로 3개를 갖고 있다. 3번 할 필요가 없다.--> required가 모두 3개에 모두 요구되더라도 어떤 요소든 하나라도 걸리면 또 requried를 실행할 필요 없다. 나머지 required는 gatehrUserInput함수의 validateInput함수를 호출하는 중에서 또 걸릴 것이다. 즉, 각 input 들에 대한 types(required, MinMax, Maxlength, password 이 중 연결된 valid 타입이 있을 때)들만 차례대로 검사하면 된다. 
     Loop1:
     for( const [input, types] of Object.entries(configValid) ){
         //types.forEach((type)=>{
@@ -111,7 +111,7 @@ class ProjectInput {
         console.log(this.templateElement); // HTMLCollection(유사배열 - 인덱스나 반복문을 통해 요소에 접근 가능하나 배열 메서드는 사용불가(foreEach, entires, keys, values사용 불가능), liveCollection 이다 : DOM변경사항이 실시간 반영)에 return  --> children속성으로 htmlcollection
         console.log(this.templateElement.content); // NodeList(유사배이지만, foreEach, entires, keys, values사용가능, 대부분의 nodeList는 Live Collection이지만, querysellectorAll은 static Collection으로 DOM변경사항이 실시간으로 반영되지 않는다. )에 return --> childNode nodeList
         const importedNode = document.importNode(this.templateElement.content, true); //this.templateElement.content의 자식노드도 가져올 거면 true
-        this.element = importedNode.firstElementChild as HTMLFormElement;
+        this.element = importedNode.firstElementChild as HTMLFormElement; //form 요소
         this.element.id = 'user-input'; //form요소에게 id 값을 세팅햇다.
         this.titleInputElement = this.element.querySelector('#title')! as HTMLInputElement;
         this.descriptionInputElement = this.element.querySelector('#description')! as HTMLInputElement;

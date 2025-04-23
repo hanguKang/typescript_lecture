@@ -12,9 +12,9 @@ console.log(fetchedUserData?.job?.title); //데이터를 가져올지 안 가져
 
 
 //nullish coalescing operator : null 병합 연산자 
-// 좌항이 null, undefined일 경우에만 B를 리턴한다. 
+// 좌항이 null, undefined일 경우에만 B가 trusy라면 B를 리턴한다. 
 // A ?? B
-//기존에는 A || B  : A가 falsy한 값 (0, NaN, '', undeinfd, null ) 인 경우 B를 반환했다. 
+//기존에는 A || B  : A가 falsy한 값 (0, NaN, '', undeinfd, null ) 인 경우 B가 값이 trusy라면 B를 반환했다. 
 //문제점 
 // price가 0인 경우 -1 반환
 function getPrice1(product: { price?: number }) {

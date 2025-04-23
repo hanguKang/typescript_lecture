@@ -5,8 +5,8 @@ function  Logger(LogString : string){
 
   //순서 IV
   return function(constructor:Function){
-    console.log(LogString);
-    console.log(constructor);
+    console.log('LogString',LogString);
+    console.log('constructor', constructor);
     //console.log('context: ');
   }
 }
@@ -33,7 +33,7 @@ function WithTemplate(template: string, hookId : string){
     console.log("WithTemplate FACTORY"); //순서 II
   
     //순서 III
-    return function <T extends { new(...args: any[]): {name: string} }> ( originalConstructor: T){  // new 키워드로 인스턴스화가 가능한 object타입(클래스)-->{new()}, 인스턴스화된 객체가 name이라는 문자열 속성을 가지는 클래스에 종속된다. ,  new(...args: any[]) --> 생성자 타입을 의미한다. 즉 생성자를 가진 클래스를 의미한다. ...args: any[] --> 어떤 매개변수든 받을 수 있는 생성자를 가질 수 있음을 의미한다. , 파라미터 originalConstructor는 생성자를 갖고 있는 name속성을 갖고 있는 원본 클래스(때문에 name속성을 갖는 객체를 상속받는 T이다. T는 Person_deco이다.  name속성을 갖고 있는 클래스이기 때문이다. )를 의미한다.
+    return function <T extends { new (...args: any[]): {name: string} }> ( originalConstructor: T){  // new 키워드로 인스턴스화가 가능한 object타입(클래스)-->{new()}, 인스턴스화된 객체가 name이라는 문자열 속성을 가지는 클래스에 종속된다. ,  new(...args: any[]) --> 생성자 타입을 의미한다. 즉 생성자를 가진 클래스를 의미한다. ...args: any[] --> 어떤 매개변수든 받을 수 있는 생성자를 가질 수 있음을 의미한다. , 파라미터 originalConstructor는 생성자를 갖고 있는 name속성을 갖고 있는 원본 클래스(때문에 name속성을 갖는 객체를 상속받는 T이다. T는 Person_deco이다.  name속성을 갖고 있는 클래스이기 때문이다. )를 의미한다.
       
       return class extends originalConstructor{
         constructor(...args: any[]){  // 파라미터로 '_' ex> (..._:any[]) 이렇게 사용하면 이 파라미터를 사용하지 않겠다는 뜻이다. #aaa를 사용하기 때문에 ...args라고 씀.
@@ -46,10 +46,9 @@ function WithTemplate(template: string, hookId : string){
             hookEl.querySelector('h2')!.textContent = this.name;
           }
         }        
-      }
-      
-    }
+      }      
   }
+}
 
 
 @Logger(' LOGGING - PERSON ') 
@@ -133,7 +132,7 @@ const dependencyPool:{[key:string]: {name:string}} = {
 
 
 function inject(...depNames: any[]){
-  return function <T extends {new(...args: any[]): {}}> (originConstructor: T) {
+  return function <T extends {new(...args: any[]): {}}> (originConstructor: T) { //{}클래스라는 의미 {new ():{}==> 인스턴스라는 의미} , 즉 생성자함수(클래스)라는 뜻. {인스턴스} 인스턴스를 만드는 객체는 생성자 함수 또는 class밖에 없다.
     return class extends originConstructor {
       constructor(...args: any[]){
         const deps = depNames.reduce( (deps: {}, name: string)=>({
@@ -167,7 +166,8 @@ const p = createProduct();
 // --------------------------------------------------------------------
 
 function logg_price(target:any, name:string, descriptor:PropertyDescriptor){
-  const originalMethod = descriptor.value;
+  const originalMethod = descriptor.value; //Product_price 클래스에서 decorators로 사용하는 setPrice의 참조 할당
+  //descripotr.value를 재 정의 
   descriptor.value = function (...args: any[]){
     const res = originalMethod.apply(this, args);
     console.log(`${name} method arguments:`, args);
@@ -221,7 +221,7 @@ function changeAge(newAge: number) {
 
 const users = new Users();
 const newAge = users.age;
-console.log(newAge);
+console.log('newAge',newAge);
 
 
 
@@ -257,6 +257,7 @@ class Greeter {
 
 function MinLength(min : number){
   return function (target:any, propertyName: string, parameterIndex: number){
+    console.log('------------------------ target -----------------------',target)
     target.validators = {
       minLength(args: string[]){
         return args[parameterIndex].length >= min;
@@ -320,7 +321,7 @@ class BtnEvnt{
   }
 }
 
-let btn = document.querySelector('button')!;
+let btn = document.querySelector('button')! as HTMLButtonElement;
 let instance_btnEvnt = new BtnEvnt();
 btn.addEventListener('click',instance_btnEvnt.showMsg);
 

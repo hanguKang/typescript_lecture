@@ -45,7 +45,17 @@ class ITDepartment extends Department {
 
 class AccountingDepartment extends Department {
   private lastReport: string;
-  //"private static"은 프로그래밍에서 특정한 멤버나 메서드가 클래스 내부에서만 접근 가능하고, 해당 멤버 또는 메서드가 클래스 인스턴스에 속하는 것이 아니라 클래스 자체에 속한다는 것을 나타내는 키워드 조합이다. AccoungtingDepartment.멤버필드 or 메서드
+
+  /*
+  "private static"은 프로그래밍에서 특정한 멤버나 메서드가 클래스 내부에서만 접근 가능하고, 해당 멤버 또는 메서드가 클래스 인스턴스에 속하는 것이 아니라 클래스 자체에 속한다는 것을 나타내는 키워드 조합이다. AccoungtingDepartment.멤버필드 or 메서드
+  private 과의 private static의 차이점은 static만 접근 가능하다는 거다. static인 AccountingDepartment.instance로 접근가능. 물론 this도 접근가능
+  this는 현재 클래스의 인스턴스를 가리키지만, 정적 메서드 내에서는 this가 클래스 자체를 가리킵니다.
+  따라서 this.instance도 AccountingDepartment.instance와 동일하게 동작합니다.
+  가독성:
+  AccountingDepartment.instance는 정적 속성임을 명시적으로 나타내므로, 코드를 처음 보는 사람이 이해하기 쉽습니다.
+  this.instance는 코드가 간결하지만, this가 정적 메서드에서 클래스 자체를 가리킨다는 것을 이해해야 합니다.
+
+  */
   private static instance: AccountingDepartment;
 
   get mostRecentReport() {
