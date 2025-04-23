@@ -35,7 +35,7 @@ type Listener <T>=   (inputVals:T[]) => void //generic을 배열로 가져야 �
 
 abstract class State <T>{
   //proteced를 사용하는 이유는 상속으로 인해서 내부에서 사용할 수 있게 만들기 위해서이다. 
-  protected listeners:Listener<T>[]=[] //#Listener 를 찾아보면, type Listener 함수를 generic으로 변경해서 전달인자를 projectType에서 제네릭으로 사용하도록 변경했다. 때문에 앞으로 Listener를 사용하기 위해서는 제네릭 방식으로 표현해야 한다. 전달인자를 제네릭 타입으로 전달해줘야 하기 때문이다. 
+  protected listeners:Listener<T>[]=[] //#Listener 를 찾아보면, type Listener 함수를 generic으로 변경했다. 변경전의 전달인자 projectType을 제네릭으로 변경했다. 때문에 앞으로 Listener를 사용하기 위해서는 제네릭 방식으로 표현해야 한다. 전달인자를 제네릭 타입으로 전달해줘야 하기 때문이다. 
   addListener( fn: Listener<T>){
     this.listeners.push(fn);
   }
@@ -184,9 +184,10 @@ class ProjectList2 extends Component<HTMLDivElement, HTMLElement>{
       //submit으로 projectState2.addProject() 실행
       //console.log('실행?')
       const relevantProject = projects.filter(prj =>{
-        if(this.type === 'active'){
+        if(this.type === 'active'){ // ProjectList2 인스턴스를 생성할 때 'active'로 생성했는가? 아니면 'finished'로 생성했는가 로 갈린다. 그 다음 prj.status값이 rojectStatus.Active 참조와 같은 project가( filter된 ) 모여서 배열로  완성된다. 
           return prj.status === ProjectStatus.Active
         }
+        // ProjectList2 인스턴스를 생성할 때 'active'로 생성했는가? 아니면 'finished'로 생성했는가 로 갈린다. 그 다음 prj.status값이 rojectStatus.Finished 참조와 같은 project가( filter된 ) 모여서 배열로  완성된다. 
         return prj.status === ProjectStatus.Finished
       })
       this.addAssignProjects = relevantProject
